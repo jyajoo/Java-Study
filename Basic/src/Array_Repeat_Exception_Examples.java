@@ -277,7 +277,6 @@ public class Array_Repeat_Exception_Examples {
                     System.out.println("옳은 명령어를 입력해주세요.");
                 }
             }
-
         }
     }
 
