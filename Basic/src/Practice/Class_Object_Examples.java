@@ -1,5 +1,6 @@
 package Practice;
 
+import java.util.Dictionary;
 import java.util.Scanner;
 
 class Ex01 {
@@ -154,6 +155,193 @@ class Ex07_2 {
     }
 }
 
+class Ex08 {
+    String name;
+    String tel;
+
+    public Ex08(String name, String tel) {
+        this.name = name;
+        this.tel = tel;
+    }
+}
+
+class Ex09 {
+    public static int[] concat(int[] a, int[] b) {
+        int[] array = new int[a.length + b.length];
+        for (int i = 0; i < a.length; i++) {
+            array[i] = a[i];
+        }
+
+        for (int i = a.length; i < (a.length + b.length); i++) {
+            array[i] = b[i - a.length];
+        }
+        return array;
+    }
+
+    public static void print(int[] a) {
+        System.out.print("[ ");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + " ");
+        }
+        System.out.print("]");
+    }
+}
+
+class Ex10 {
+    private static String[] kor = {"사랑", "아기", "돈", "미래", "희망"};
+    private static String[] eng = {"love", "baby", "money", "future", "hope"};
+
+    public static String kor2Eng(String word) {
+        for (int i = 0; i < kor.length; i++) {
+            if (kor[i].equals(word)) {
+                return eng[i];
+            }
+        }
+        return "";
+    }
+}
+
+class Ex11_1 {
+    private int a;
+    private int b;
+
+    public void setValue(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int calculate() {
+        return a + b;
+    }
+}
+
+class Ex11_2 {
+    private int a;
+    private int b;
+
+    public void setValue(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int calculate() {
+        return a - b;
+    }
+}
+
+class Ex11_3 {
+    private int a;
+    private int b;
+
+    public void setValue(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int calculate() {
+        return a * b;
+    }
+}
+
+class Ex11_4 {
+    private int a;
+    private int b;
+
+    public void setValue(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int calculate() {
+        return a / b;
+    }
+}
+
+class Ex12 {
+    private String[][] seats;
+
+    Ex12() {
+        seats = new String[3][10];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 10; j++) {
+                seats[i][j] = "---";
+            }
+        }
+    }
+
+    public void booking(int n) {
+        Scanner scanner = new Scanner(System.in);
+        print_seat(n);
+        System.out.print("이름 >> ");
+        String name = scanner.next();
+        System.out.print("번호 >> ");
+        int num = scanner.nextInt();
+
+        if (n > 0 && n < 4) {
+            seats[n - 1][num - 1] = name;
+        }else {
+            System.out.print("1부터 3까지 입력해야 합니다.");
+        }
+    }
+
+    private void print_seat(int n) {
+
+
+        if (n == 1) {
+            System.out.print("S>> ");
+        } else if (n == 2) {
+            System.out.print("A>> ");
+        } else if (n == 3) {
+            System.out.print("b>> ");
+        } else {
+            System.out.println("1부터 3까지 입력해야 합니다.");
+            return;
+        }
+
+        for (int j = 0; j < 10; j++) {
+            System.out.print(seats[n - 1][j] + " ");
+        }
+        System.out.println();
+    }
+
+    public void inquiry() {
+
+        for (int i = 0; i < 3; i++) {
+            if (i == 0) {
+                System.out.print("S>> ");
+            } else if (i == 1) {
+                System.out.print("A>> ");
+            } else if (i == 2) {
+                System.out.print("b>> ");
+            } else {
+                System.out.println("1부터 3까지 입력해야 합니다.");
+            }
+
+            for (int j = 0; j < 10; j++) {
+                System.out.print(seats[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("<<<조회를 완료하였습니다>>>");
+    }
+
+    public void cancel(int n) {
+        Scanner scanner = new Scanner(System.in);
+        print_seat(n);
+        System.out.print("이름 >> ");
+        String name = scanner.next();
+
+        for (int i = 0; i < 10; i++) {
+            if (seats[n-1][i].equals(name)) {
+                seats[n-1][i] = "---";
+                break;
+            }
+        }
+    }
+}
+
+
 public class Class_Object_Examples {
 
     static Scanner scanner = new Scanner(System.in);
@@ -210,5 +398,108 @@ public class Class_Object_Examples {
         System.out.println("---------[Ex07]---------");
         Ex07_2 ex07_2 = new Ex07_2(30);
         ex07_2.run();
+
+        System.out.println("---------[Ex08]---------");
+        System.out.print("인원수>> ");
+        int num = scanner.nextInt();
+        Ex08[] ex08s = new Ex08[num];
+        for (int i = 0; i < num; i++) {
+            System.out.print("이름과 전화번호(이름과 번호는 빈 칸없이 입력) >> ");
+            String name = scanner.next();
+            String tel = scanner.next();
+            ex08s[i] = new Ex08(name, tel);
+        }
+
+        System.out.println("저장되었습니다...");
+        while(true){
+            System.out.print("검색할 이름 >> ");
+            String name = scanner.next();
+            int check = 0;
+            if (name.equals("그만")) {
+                break;
+            }
+
+            for(Ex08 ex08 : ex08s){
+                if (ex08.name.equals(name)) {
+                    System.out.println(name + "의 번호는 " + ex08.tel + "입니다.");
+                    check += 1;
+                    break;
+                }
+            }
+            if (check == 0) {
+                System.out.println(name + "이/가 없습니다.");
+            }
+        }
+
+        System.out.println("---------[Ex09]---------");
+        int array1[] = {1, 5, 7, 9};
+        int array2[] = {3, 6, -1, 100, 77};
+        int array3[] = Ex09.concat(array1, array2);
+        Ex09.print(array3);
+
+        System.out.println("---------[Ex10]---------");
+        System.out.println("한영 단어 검색 프로그램입니다.");
+        while (true) {
+            System.out.print("한글 단어? ");
+            String kor = scanner.next();
+            if (kor.equals("그만")) {
+                break;
+            }
+            String s = Ex10.kor2Eng(kor);
+            if (s.equals("")) {
+                System.out.println(kor + "은/는 저의 사전에 없습니다.");
+            } else {
+                System.out.println(kor + "은/는 " + s);
+            }
+        }
+
+        System.out.println("---------[Ex11]---------");
+        System.out.print("두 정수와 연사자를 입력하시오 >> ");
+        int x = scanner.nextInt();
+        int y = scanner.nextInt();
+        String p = scanner.next();
+
+        switch (p) {
+            case "+":
+                Ex11_1 ex11_1 = new Ex11_1();
+                ex11_1.setValue(x, y);
+                System.out.println(ex11_1.calculate());
+                break;
+            case "-":
+                Ex11_2 ex11_2 = new Ex11_2();
+                ex11_2.setValue(x, y);
+                System.out.println(ex11_2.calculate());
+                break;
+            case "*":
+                Ex11_3 ex11_3 = new Ex11_3();
+                ex11_3.setValue(x, y);
+                System.out.println(ex11_3.calculate());
+                break;
+            case "/":
+                Ex11_4 ex11_4 = new Ex11_4();
+                ex11_4.setValue(x, y);
+                System.out.println(ex11_4.calculate());
+                break;
+        }
+
+        System.out.println("---------[Ex12]---------");
+        System.out.println("명품콘서트홀 예약 시스템입니다.");
+        Ex12 ex12 = new Ex12();
+
+        while (true) {
+            System.out.print("예약 : 1, 조회 : 2, 취소 : 3, 끝내기 : 4 >> ");
+            int cmd = scanner.nextInt();
+            if (cmd == 1) {
+                System.out.print("좌석 구분 S(1), A(2), B(3) >> ");
+                ex12.booking(scanner.nextInt());
+            } else if (cmd == 2) {
+                ex12.inquiry();
+            } else if (cmd == 3) {
+                System.out.print("좌석 구분 S(1), A(2), B(3) >> ");
+                ex12.cancel(scanner.nextInt());
+            } else if (cmd == 4) {
+                break;
+            }
+        }
     }
 }
