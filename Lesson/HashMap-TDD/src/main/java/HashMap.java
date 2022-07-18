@@ -8,12 +8,13 @@ public class HashMap<K, V> {
     int lastIndex;
 
     public HashMap() {
-        keyList = new Object[100];
-        valueList = new Object[100];
+        keyList = new Object[2];
+        valueList = new Object[2];
         lastIndex = 0;
     }
 
     public void put(K key, V value) {
+        sizeUpIfNeed();
         int index = getIndex(key);
         if (index != -1) {
             keyList[index] = key;
@@ -62,6 +63,20 @@ public class HashMap<K, V> {
             keySet.add((K)keyList[i]);
         }
         return keySet;
+    }
+
+    public void sizeUpIfNeed() {
+        if (lastIndex == keyList.length) {
+            Object[] new_KeyList = new Object[keyList.length * 2];
+            Object[] new_ValueList = new Object[keyList.length * 2];
+
+            for (int i = 0; i < keyList.length; i++) {
+                new_KeyList[i] = keyList[i];
+                new_ValueList[i] = valueList[i];
+            }
+            keyList = new_KeyList;
+            valueList = new_ValueList;
+        }
     }
 }
 

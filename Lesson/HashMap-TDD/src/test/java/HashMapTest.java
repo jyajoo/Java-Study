@@ -107,6 +107,20 @@ class HashMapTest {
         monkey.run();
         person.run();
     }
+
+    @Test
+    void 배열_크기_변동() {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("철수", 22);
+        hashMap.put("영희", 23);
+        int rs1 = hashMap.size();
+
+        hashMap.put("가영", 25);
+        int rs2 = hashMap.size();
+
+        assertEquals(2, rs1);
+        assertEquals(3, rs2);
+    }
 }
 
 class Person{
